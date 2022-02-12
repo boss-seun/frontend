@@ -23,7 +23,8 @@ const Home = () => {
   const forms = Object.freeze({
     "mc": Register,
     "lg": LocalGovForm,
-    "i": IndividualForm 
+    "i": IndividualForm,
+    "vs": IndividualForm
   });
 
   const CurrentForm = forms[selected];

@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Box, VStack, Select, Wrap, WrapItem } from '@chakra-ui/react';
 import MainButton from './common/Button';
 import MainInput from './common/Input';
 import AuthFormTitle from './common/AuthFormTitle';
 
+import { context as modalContext } from '../context/modal';
+
 
 const IndividualForm = () => {
+  const showAlert = useContext(modalContext);
+
+  const handleSubmit = () => {
+    showAlert({
+      t: 'Sign up Successful',
+      tp: 'success',
+      d: 'Proceed to carry out any registration',
+      bc: 'GOT IT'
+    });
+  }
+
  return (
     <Box
       w="100%"
@@ -77,6 +90,7 @@ const IndividualForm = () => {
         <MainButton
           title="CONTINUE"
           alignSelf="flex-start"
+          onClick={handleSubmit}
         />
 
       </VStack>

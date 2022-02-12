@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Box, VStack, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import MainButton from './common/Button';
 import MainInput, { PasswordInput } from './common/Input';
 import AuthFormTitle from './common/AuthFormTitle';
 
+import { context as modalContext } from '../context/modal';
+
 export const Register = () => {
   const [view, setView] = useState("register");
+  const showAlert = useContext(modalContext);
+
+  const handleSubmit = () => {
+    showAlert({
+      t: 'Sign up Successful',
+      tp: 'success',
+      d: 'Proceed to carry out any registration',
+      bc: 'GOT IT'
+    });
+  }
 
   if (view !== "register") {
     return <Login /> 
@@ -84,6 +96,7 @@ export const Register = () => {
         <MainButton
           title="Sign up"
           alignSelf="flex-start"
+          onClick={handleSubmit}
         />
 
         <Text color="black" alignSelf="flex-start">
@@ -105,6 +118,16 @@ export const Register = () => {
 
 export const Login = () => {
   const [view, setView] = useState("login");
+  const showAlert = useContext(modalContext);
+
+  const handleSubmit = () => {
+    showAlert({
+      t: 'Invalid Data',
+      tp: 'error',
+      d: 'Cannot login with the provided credentials',
+      bc: 'GOT IT'
+    });
+  }
 
   if (view !== "login") {
     return <Register />
@@ -135,6 +158,7 @@ export const Login = () => {
         <MainButton
           title="Login"
           alignSelf="flex-start"
+          onClick={handleSubmit}
         />
 
         <Text color="black" alignSelf="flex-start">
