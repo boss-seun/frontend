@@ -17,7 +17,7 @@ import logo from '../assets/logo.svg';
 import items from '../utils/items';
 
 const Home = () => {
-  const [selected, setSelected] = useState("mc");
+  const [selected, setSelected] = useState("lg");
   const [show, setShow] = useState(false);
 
   const forms = Object.freeze({
