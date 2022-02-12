@@ -5,16 +5,16 @@ import view_statistical_data_icon from "../assets/view_statistical_data.svg";
 
 const items = [
   {
-    "title": "Medical Center",
-    "note": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet velit purus vitana varius.",
-    "ticker": "mc",
-    "icon": medical_center_icon
-  },
-  {
     "title": "Local Government",
     "note": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet velit purus vitana varius.",
     "ticker": "lg",
     "icon": local_government_icon
+  },
+  {
+    "title": "Medical Center",
+    "note": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet velit purus vitana varius.",
+    "ticker": "mc",
+    "icon": medical_center_icon
   },
   {
     "title": "Individual",
