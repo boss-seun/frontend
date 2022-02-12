@@ -32,12 +32,12 @@ export const Register = () => {
           direction="row"
           spacing={["8", "8", "8", "2.5"]}
         >
-          <WrapItem w={["100%", "100%", "100%", "48%"]}>
+          <WrapItem w={["100%", "100%", "100%", "47%"]}>
             <MainInput
               placeholder="Registration Number"
             />
           </WrapItem>
-          <WrapItem w={["100%", "100%", "100%", "48%"]}>
+          <WrapItem w={["100%", "100%", "100%", "47%"]}>
             <MainInput
               placeholder="Mobile Number"
             />
@@ -57,13 +57,13 @@ export const Register = () => {
           direction="row"
           spacing={["8", "8", "8", "2.5"]}
         >
-          <WrapItem w={["100%", "100%", "100%", "48%"]}>
+          <WrapItem w={["100%", "100%", "100%", "47%"]}>
             <PasswordInput
               placeholder="Password"
             />
           </WrapItem>
 
-          <WrapItem w={["100%", "100%", "100%", "48%"]}>
+          <WrapItem w={["100%", "100%", "100%", "47%"]}>
             <PasswordInput
               placeholder="Confirm password"
             />

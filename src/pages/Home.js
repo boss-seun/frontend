@@ -10,12 +10,23 @@ import {
 import { HamburgerIcon } from '@chakra-ui/icons';
 import SelectView from '../components/SelectView';
 import { Register } from '../components/MedicalCenterForm';
+import LocalGovForm from '../components/LocalGovForm';
+import IndividualForm from '../components/IndividualForm';
 
 import logo from '../assets/logo.svg';
 import items from '../utils/items';
+
 const Home = () => {
   const [selected, setSelected] = useState("mc");
   const [show, setShow] = useState(false);
+
+  const forms = Object.freeze({
+    "mc": Register,
+    "lg": LocalGovForm,
+    "i": IndividualForm 
+  });
+
+  const CurrentForm = forms[selected];
 
   return (
     <Wrap
@@ -93,8 +104,7 @@ const Home = () => {
           "20"
         ]}
       >
-      {/* todo: contain the form  */}
-        <Register />
+        <CurrentForm />
       </WrapItem>
     </Wrap>
   );
