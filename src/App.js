@@ -6,6 +6,7 @@ import Home from './pages/Home';
 
 // components
 import NavBar from './components/common/NavBar';
+import BirthReg from './pages/BirthReg';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Route path="/birth-reg" element={
         <>
           <NavBar />
+          <BirthReg />
         </>
       } />
       <Route path="/" element={<Home />} />
