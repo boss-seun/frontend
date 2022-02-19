@@ -4,25 +4,29 @@ import {
   Badge,
   VStack, 
   Text,
-  Stack,
-  Select
+  Stack
 } from '@chakra-ui/react';
 
 import MainInput from '../common/Input';
 import MainButton from '../common/Button';
+import { LgaSelect, StateSelect } from '../common/Select';
 
 const ChildDetailsForm = () => {
   // birth type state
   const [gender, setGender] = useState("M");
+  // lga input state
+  const [state, setState] = useState("lagos");
 
   return (
     <VStack
       align="flex-start"
       spacing="6"
     >
-      <MainInput
-        placeholder="Given Name*"
-      />
+      <Box w={["100%", "100%", "32%"]}>
+        <MainInput 
+          placeholder="Given Name*"
+        />
+      </Box>
 
       <Stack
         direction={[ "column", "column", "row"]}
@@ -39,6 +43,13 @@ const ChildDetailsForm = () => {
           placeholder="Other names"
         />
       </Stack>
+
+      <Box w={["100%", "100%", "32%"]}>
+        <MainInput 
+          type="date"
+          placeholder="Date of Birth"
+        />
+      </Box>
 
       <Box>
         <Text
@@ -100,24 +111,12 @@ const ChildDetailsForm = () => {
         spacing={["5", "5", "3"]}
         w="100%"
       >
-        <Select 
-          placeholder='Select State' 
-          textColor="txt.muted"
-          iconColor="txt.primary"
-        >
-          <option value='option1'>Lagos</option>
-          <option value='option2'>China</option>
-          <option value='option3'>Benue</option>
-        </Select>
-        <Select 
-          placeholder='Local govt area' 
-          textColor="txt.muted"
-          iconColor="txt.primary"
-        >
-          <option value='option1'>Lagos</option>
-          <option value='option2'>China</option>
-          <option value='option3'>Benue</option>
-        </Select>
+        <StateSelect
+          onChange={(e) => setState(e.target.value)} 
+        />
+        <LgaSelect
+          state={state}
+        />
         <MainInput
           placeholder="Town*"
         />

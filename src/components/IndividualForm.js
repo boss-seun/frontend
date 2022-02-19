@@ -1,21 +1,29 @@
-import React, { useContext } from 'react'
-import { Box, VStack, Select, Wrap, WrapItem } from '@chakra-ui/react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, VStack, Wrap, WrapItem } from '@chakra-ui/react';
 import MainButton from './common/Button';
 import MainInput from './common/Input';
 import AuthFormTitle from './common/AuthFormTitle';
+import { StateSelect, LgaSelect } from './common/Select';
 
 import { context as modalContext } from '../context/modal';
 
 
 const IndividualForm = () => {
+  const navigate = useNavigate();
   const showAlert = useContext(modalContext);
+  const [state, setState] = useState('lagos');
 
   const handleSubmit = () => {
     showAlert({
       t: 'Sign up Successful',
       tp: 'success',
       d: 'Proceed to carry out any registration',
-      bc: 'GOT IT'
+      bc: 'GOT IT',
+      bClick: () => {
+        // perform all api logic here
+        navigate('/birth-reg');
+      }
     });
   }
 
@@ -63,26 +71,14 @@ const IndividualForm = () => {
           spacing={["8", "8", "8", "2.5"]}
         >
           <WrapItem w={["100%", "100%", "100%", "47%"]}>
-            <Select 
-              placeholder='Select State' 
-              textColor="txt.muted"
-              iconColor="txt.primary"
-            >
-              <option value='option1'>Lagos</option>
-              <option value='option2'>China</option>
-              <option value='option3'>Benue</option>
-            </Select>
+            <StateSelect
+              onChange={(e) => setState(e.target.value)}
+            />
           </WrapItem>
           <WrapItem w={["100%", "100%", "100%", "47%"]}>
-            <Select 
-              placeholder='Local govt area' 
-              textColor="txt.muted"
-              iconColor="txt.primary"
-            >
-              <option value='option1'>Lagos</option>
-              <option value='option2'>China</option>
-              <option value='option3'>Benue</option>
-            </Select>
+            <LgaSelect
+              state={state}
+            />
           </WrapItem>
         </Wrap>
 

@@ -72,6 +72,7 @@ const AppModal = (props) => {
               lineHeight="22px" 
               fontWeight="500"
               color="txt.muted"
+              textAlign="center"
             >
               {description }
             </Text>

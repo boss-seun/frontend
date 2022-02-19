@@ -11,7 +11,11 @@ import {
 } from '@chakra-ui/react';
 
 import ChildDetailsForm from '../components/birth/ChildDetails';
+import MotherDetailsForm from '../components/birth/MotherDetails';
+import FatherDetailsForm from '../components/birth/FatherDetail';
+
 import FormHint from '../components/common/FormHint';
+import BirthConfirmation from '../components/birth/BirthConfirmation';
 
 const BirthReg = () => {
   return (
@@ -87,13 +91,33 @@ const BirthReg = () => {
             </HStack>
           </TabPanel>
           <TabPanel>
-            <Text>2</Text>
+            <HStack
+              align="flex-start" 
+              spacing="9"
+              justify="space-between"
+            >
+              <MotherDetailsForm />
+              <FormHint />
+            </HStack>
           </TabPanel>
           <TabPanel>
-            <Text>3</Text>
+            <HStack
+              align="flex-start" 
+              spacing="9"
+              justify="space-between"
+            >
+              <FatherDetailsForm />
+              <FormHint />
+            </HStack>
           </TabPanel>
           <TabPanel>
-            <Text>4</Text>
+            <HStack
+              align="flex-start" 
+              spacing="9"
+              justify="space-between"
+            >
+              <BirthConfirmation />
+            </HStack>
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, VStack, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import MainButton from './common/Button';
 import MainInput, { PasswordInput } from './common/Input';
@@ -7,6 +8,7 @@ import AuthFormTitle from './common/AuthFormTitle';
 import { context as modalContext } from '../context/modal';
 
 export const Register = () => {
+  const navigate = useNavigate();
   const [view, setView] = useState("register");
   const showAlert = useContext(modalContext);
 
@@ -15,7 +17,11 @@ export const Register = () => {
       t: 'Sign up Successful',
       tp: 'success',
       d: 'Proceed to carry out any registration',
-      bc: 'GOT IT'
+      bc: 'GOT IT',
+      bClick: () => {
+        // do all api logic here
+        navigate('/birth-reg');
+      } 
     });
   }
 

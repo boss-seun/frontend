@@ -9,8 +9,7 @@ export const ModalProvider = (props) => {
   const [desc, setDesc] = useState("");
   const [type, setType] = useState("");
   const [btnContent, setBtnContent] = useState("");
-
-  let onClick = () => {};
+  const [btnClick, setBtnClick] = useState(() => {})
 
   const showAlert = ({ t, d, tp, bc, bClick }) => {
     setTitle(t);
@@ -19,7 +18,7 @@ export const ModalProvider = (props) => {
     setBtnContent(bc);
 
     // set the click handler
-    onClick = bClick;
+    setBtnClick(() => bClick)
 
     // open modal
     setOpen(true);
@@ -35,7 +34,7 @@ export const ModalProvider = (props) => {
         type={type}
         btnContent={btnContent}
         onClose={() => setOpen(false)}
-        onClick={onClick}
+        btnClick={btnClick}
       />
     </context.Provider>
   );

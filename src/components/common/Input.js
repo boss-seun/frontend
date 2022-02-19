@@ -8,7 +8,8 @@ const MainInput = (props) => {
     id,
     onFocus = () => {},
     onBlur = () => {},
-    onChange = () => {}
+    onChange = () => {},
+    type = 'text'
   } = props;
 
   const [active, setActive] = useState(false);
@@ -66,6 +67,7 @@ const MainInput = (props) => {
           setFocus(false);
           onBlur();
         }}
+        type={type}
       />
       </Box>
     );
