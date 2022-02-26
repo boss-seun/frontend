@@ -13,7 +13,7 @@ const StateSelect = (props) => {
       {...props}
     >
       { data.map(({ state, alias }) => (
-        <option value={alias}>
+        <option value={alias} key={alias}>
           { state }
         </option>
       ))}
@@ -35,7 +35,7 @@ const LgaSelect = (props) => {
       {...props}
     >
       { lgas.map((lga) => (
-        <option value={lga.toLowerCase()}>
+        <option value={lga.toLowerCase()} key={lga.toLowerCase()}>
           { lga }
         </option>
       ))}

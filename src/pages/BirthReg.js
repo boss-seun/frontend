@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Box,
   Text,
@@ -17,10 +17,20 @@ import FatherDetailsForm from '../components/birth/FatherDetail';
 import FormHint from '../components/common/FormHint';
 import BirthConfirmation from '../components/birth/BirthConfirmation';
 
+import { context as birthContext } from '../context/birth';
+
 const BirthReg = () => {
+  const { 
+    isChildComplete,
+    isFatherComplete,
+    isMotherComplete,
+    tabIndex,
+    setTabIndex
+  } = useContext(birthContext);
+
   return (
     <Box>
-      <Tabs>
+      <Tabs index={tabIndex} onChange={(index) => setTabIndex(index)}>
         <Text
           bg="txt.primary" 
           px={["1rem", "2rem", "2rem", "8rem"]}
@@ -49,13 +59,25 @@ const BirthReg = () => {
         >
           {
             [
-              "Child's Details",
-              "Mother's Details",
-              "Father's Details",
-              "Confirmation"
+              {
+                title: "Child's Details",
+                disabled: false
+              },
+              {
+                title: "Mothers' Details",
+                disabled: !isChildComplete()
+              },
+              {
+                title: "Father's Details",
+                disabled: !isMotherComplete()
+              },
+              {
+                title: "Confirmation",
+                disabled: !isFatherComplete()
+              }
             ].map(c => (
               <Tab 
-                key={c}
+                key={c.title}
                 pl={0}
                 mr={[2, 2, 2, 6]}
                 flexShrink={0}
@@ -63,6 +85,7 @@ const BirthReg = () => {
                   borderBottomWidth: '6px',
                   borderBottomColor: 'white'
                 }}
+                isDisabled={c.disabled}
               >
                 <Text
                   fontSize={["14px", "14px", "14px", "16px"]} 
@@ -70,7 +93,7 @@ const BirthReg = () => {
                   fontWeight="700"
                   color="white"
                 >
-                  { c }
+                  { c.title }
                 </Text>
               </Tab>
             ))

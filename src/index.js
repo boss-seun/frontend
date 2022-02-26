@@ -8,17 +8,20 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/provider';
 import { ModalProvider } from './context/modal';
+import { BirthProvider } from './context/birth';
 import App from './App';
 import theme from './theme';
 
 ReactDOM.render(
   <ChakraProvider theme={theme}>
     <ModalProvider>
-      <BrowserRouter>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </BrowserRouter>
+      <BirthProvider>
+        <BrowserRouter>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </BrowserRouter>
+      </BirthProvider>
     </ModalProvider>
   </ChakraProvider>,
   document.getElementById('root')

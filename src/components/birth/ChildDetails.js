@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Box,
   Badge,
@@ -11,9 +11,16 @@ import MainInput from '../common/Input';
 import MainButton from '../common/Button';
 import { LgaSelect, StateSelect } from '../common/Select';
 
+import { context as birthContext } from '../../context/birth';
+
 const ChildDetailsForm = () => {
+  const {
+    setChild,
+    isChildComplete,
+    setTabIndex
+  } = useContext(birthContext);
   // birth type state
-  const [gender, setGender] = useState("M");
+  const [gender, setGender] = useState("Male");
   // lga input state
   const [state, setState] = useState("lagos");
 
@@ -25,6 +32,7 @@ const ChildDetailsForm = () => {
       <Box w={["100%", "100%", "32%"]}>
         <MainInput 
           placeholder="Given Name*"
+          onChange={(e) => setChild(c => ({ ...c, firstName: e.target.value }))}
         />
       </Box>
 
@@ -35,19 +43,23 @@ const ChildDetailsForm = () => {
       >
         <MainInput
           placeholder="Surname*"
+          onChange={(e) => setChild(c => ({ ...c, lastName: e.target.value }))}
         />
         <MainInput
           placeholder="Middle name*"
+          onChange={(e) => setChild(c => ({ ...c, middleName: e.target.value }))}
         />
         <MainInput
           placeholder="Other names"
+          onChange={(e) => setChild(c => ({ ...c, otherNames: e.target.value }))}
         />
       </Stack>
 
       <Box w={["100%", "100%", "32%"]}>
         <MainInput 
           type="date"
-          placeholder="Date of Birth"
+          placeholder="Date of Birth*"
+          onChange={(e) => setChild(c => ({ ...c, dob: e.target.value }))}
         />
       </Box>
 
@@ -62,8 +74,8 @@ const ChildDetailsForm = () => {
         <Stack direction="row">
           {
             [
-              "M",
-              "F"
+              "Male",
+              "Female"
             ].map(s => (
               <Badge
                 key={s}
@@ -74,7 +86,10 @@ const ChildDetailsForm = () => {
                 textTransform="none"
                 py="1"
                 px="2"
-                onClick={() => setGender(s)}
+                onClick={() => {
+                  setGender(s)
+                  setChild(c => ({ ...c, gender: s.toLowerCase() }))
+                }}
               >
                 { s }
               </Badge>
@@ -94,6 +109,7 @@ const ChildDetailsForm = () => {
         >
           <MainInput
             placeholder="Place of birth*"
+            onChange={(e) => setChild(c => ({ ...c, placeOfBirth: e.target.value }))}
           />
         </Box>
 
@@ -102,6 +118,7 @@ const ChildDetailsForm = () => {
         >
           <MainInput
             placeholder="Registration center*"
+            onChange={(e) => setChild(c => ({ ...c, registrationCenter: e.target.value }))}
           />
         </Box>
       </Stack>
@@ -112,13 +129,18 @@ const ChildDetailsForm = () => {
         w="100%"
       >
         <StateSelect
-          onChange={(e) => setState(e.target.value)} 
+          onChange={(e) => {
+            setState(e.target.value);
+            setChild(c => ({ ...c, state: e.target.value }));
+          }} 
         />
         <LgaSelect
           state={state}
+          onChange={(e) => setChild(c => ({ ...c, lga: e.target.value }))}
         />
         <MainInput
           placeholder="Town*"
+          onChange={(e) => setChild(c => ({ ...c, town: e.target.value }))}
         />
       </Stack>
 
@@ -135,6 +157,8 @@ const ChildDetailsForm = () => {
       <MainButton
         title="proceed"
         w={["100%", "100%", "30%"]}
+        disabled={!isChildComplete()}
+        onClick={() => setTabIndex(1)}
       />
     </VStack>
   );

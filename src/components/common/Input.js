@@ -40,7 +40,7 @@ const MainInput = (props) => {
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
-          onChange();
+          onChange(e);
         }}
         id={id}
         bg={!active && !focus && !value ? "#1211270A": "white"}
@@ -57,15 +57,15 @@ const MainInput = (props) => {
         }}
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}
-        onFocus={() => {
+        onFocus={(e) => {
           setActive(true);
           setFocus(true);
-          onFocus();
+          onFocus(e);
         }}
-        onBlur={() => {
+        onBlur={(e) => {
           setActive(false);
           setFocus(false);
-          onBlur();
+          onBlur(e);
         }}
         type={type}
       />

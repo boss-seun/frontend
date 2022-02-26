@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Box,
   Badge,
@@ -12,7 +12,15 @@ import MainInput from '../common/Input';
 import MainButton from '../common/Button';
 import { LgaSelect, StateSelect } from '../common/Select';
 
+import { context as birthContext } from '../../context/birth';
+
 const MotherDetailsForm = () => {
+  const {
+    isMotherComplete,
+    setMother,
+    setTabIndex
+  } = useContext(birthContext);
+
   // birth type state
   const [condition, setCondition] = useState("alive");
   // lga input state
@@ -46,7 +54,10 @@ const MotherDetailsForm = () => {
                 textTransform="capitalize"
                 py="1"
                 px="2"
-                onClick={() => setCondition(s)}
+                onClick={() => {
+                  setCondition(s);
+                  setMother(m => ({ ...m, condition: s }))
+                }}
               >
                 { s }
               </Badge>
@@ -62,19 +73,23 @@ const MotherDetailsForm = () => {
       >
         <MainInput
           placeholder="Mother's name*"
+          onChange={(e) => setMother(m => ({ ...m, firstName: e.target.value }))}
         />
         <MainInput
           placeholder="Surname*"
+          onChange={(e) => setMother(m => ({ ...m, lastName: e.target.value }))}
         />
         <MainInput
-          placeholder="Maiden name"
+          placeholder="Maiden name*"
+          onChange={(e) => setMother(m => ({ ...m, maidenName: e.target.value }))}
         />
       </Stack>
 
       <Box w={["100%", "100%", "32%"]}>
         <MainInput 
           type="date"
-          placeholder="Date of Birth"
+          placeholder="Date of Birth*"
+          onChange={(e) => setMother(m => ({ ...m, dob: e.target.value }))}
         />
       </Box>
 
@@ -90,6 +105,7 @@ const MotherDetailsForm = () => {
         >
           <MainInput
             placeholder="Occupation*"
+            onChange={(e) => setMother(m => ({ ...m, occupation: e.target.value }))}
           />
         </Box>
 
@@ -98,6 +114,7 @@ const MotherDetailsForm = () => {
         >
           <MainInput
             placeholder="Residential address*"
+            onChange={(e) => setMother(m => ({ ...m, address: e.target.value }))}
           />
         </Box>
       </Stack>
@@ -108,10 +125,15 @@ const MotherDetailsForm = () => {
         w="100%"
       >
         <StateSelect
-          onChange={(e) => setState(e.target.value)} 
+          placeholder="State of origin"
+          onChange={(e) => {
+            setState(e.target.value);
+            setMother(m => ({ ...m, state: e.target.value }));
+          }} 
         />
         <LgaSelect
           state={state}
+          onChange={(e) => setMother(m => ({ ...m, lga: e.target.value }))}
         />
       </Stack>
 
@@ -135,11 +157,14 @@ const MotherDetailsForm = () => {
           borderColor="txt.primary"
           borderWidth="1px"
           w={["100%", "100%", "30%"]}
+          onClick={() => setTabIndex(0)}
         />
 
         <MainButton
           title="proceed"
           w={["100%", "100%", "30%"]}
+          disabled={!isMotherComplete()}
+          onClick={() => setTabIndex(2)}
         />
       </HStack>
     </VStack>

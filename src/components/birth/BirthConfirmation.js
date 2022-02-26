@@ -9,18 +9,26 @@ import {
 import MainButton from '../common/Button';
 
 import { context as modalContext } from '../../context/modal';
+import { context as birthContext } from '../../context/birth';
 
 const BirthConfirmation = () => {
   const showAlert = useContext(modalContext);
+  const {
+    setTabIndex,
+    child,
+    father,
+    mother
+  } = useContext(birthContext);
+  
 
   const handleSubmit = () => {
+    // do api call here
     showAlert({
       t: 'Successfully Submitted',
       tp: 'success',
       d: 'You will receive a notification when your submission has been approved',
       bc: 'GOT IT',
       bClick: () => {
-        // do all api logic here
         alert('why you dey click me madam 😒');
       } 
     });
@@ -65,11 +73,13 @@ const BirthConfirmation = () => {
 
             <Text 
               as="a"
+              cursor="pointer"
               color="txt.primary"
               lineHeight="28.8px"
               fontWeight="500"
               fontSize="16px"
               display={["block", "block", "none"]}
+              onClick={() => setTabIndex(0)}
             >
               Edit data
             </Text>
@@ -85,8 +95,9 @@ const BirthConfirmation = () => {
               lineHeight="40px"
               fontWeight="700"
               fontSize="18px"
+              textTransform="capitalize"
             >
-              Katola Kehinde Oladega
+              { child?.firstName } { child?.middleName } { child?.lastName }
             </Text>
             <HStack>
               <Text
@@ -103,7 +114,7 @@ const BirthConfirmation = () => {
                 fontSize="12px"
                 color="txt.muted"
               >
-                04/October/2001
+                { child?.dob }
               </Text>
             </HStack>
             <HStack>
@@ -120,8 +131,9 @@ const BirthConfirmation = () => {
                 fontWeight="700"
                 fontSize="12px"
                 color="txt.muted"
+                textTransform="capitalize"
               >
-                Male
+                { child?.gender }
               </Text>
             </HStack>
             <HStack>
@@ -138,8 +150,9 @@ const BirthConfirmation = () => {
                 fontWeight="700"
                 fontSize="12px"
                 color="txt.muted"
+                textTransform="capitalize"
               >
-                Lagos
+                { child?.state }
               </Text>
             </HStack>
             <HStack>
@@ -156,8 +169,9 @@ const BirthConfirmation = () => {
                 fontWeight="700"
                 fontSize="12px"
                 color="txt.muted"
+                textTransform="capitalize"
               >
-                Ikorodu
+                { child?.lga }
               </Text>
             </HStack>
             <HStack>
@@ -174,19 +188,22 @@ const BirthConfirmation = () => {
                 fontWeight="700"
                 fontSize="12px"
                 color="txt.muted"
+                textTransform="capitalize"
               >
-                Ikorodu General hospital
+                { child?.placeOfBirth }
               </Text>
             </HStack>
           </VStack>
 
           <Text 
             as="a"
+            cursor="pointer"
             color="txt.primary"
             lineHeight="28.8px"
             fontWeight="500"
             fontSize="16px"
             display={["none", "none", "block"]}
+            onClick={() => setTabIndex(0)}
           >
             Edit data
           </Text>
@@ -212,11 +229,13 @@ const BirthConfirmation = () => {
 
             <Text 
               as="a"
+              cursor="pointer"
               color="txt.primary"
               lineHeight="28.8px"
               fontWeight="500"
               fontSize="16px"
               display={["block", "block", "none"]}
+              onClick={() => setTabIndex(2)}
             >
               Edit data
             </Text>
@@ -232,8 +251,9 @@ const BirthConfirmation = () => {
               lineHeight="40px"
               fontWeight="700"
               fontSize="18px"
+              textTransform="capitalize"
             >
-              Jimoh Afolabi Katola 
+              { father?.firstName } { father?.middleName } { father?.lastName }
             </Text>
             <HStack>
               <Text
@@ -250,7 +270,7 @@ const BirthConfirmation = () => {
                 fontSize="12px"
                 color="txt.muted"
               >
-                04/October/2001
+                { father?.dob }
               </Text>
             </HStack>
             <HStack>
@@ -267,8 +287,9 @@ const BirthConfirmation = () => {
                 fontWeight="700"
                 fontSize="12px"
                 color="txt.muted"
+                textTransform="capitalize"
               >
-                Civil servant
+                { father?.occupation }
               </Text>
             </HStack>
             <HStack>
@@ -285,8 +306,9 @@ const BirthConfirmation = () => {
                 fontWeight="700"
                 fontSize="12px"
                 color="txt.muted"
+                textTransform="capitalize"
               >
-                Lagos
+                { father?.state }
               </Text>
             </HStack>
             <HStack>
@@ -303,19 +325,22 @@ const BirthConfirmation = () => {
                 fontWeight="700"
                 fontSize="12px"
                 color="txt.muted"
+                textTransform="capitalize"
               >
-                Ikorodu
+                { father?.lga }
               </Text>
             </HStack>
           </VStack>
 
           <Text 
             as="a"
+            cursor="pointer"
             color="txt.primary"
             lineHeight="28.8px"
             fontWeight="500"
             fontSize="16px"
             display={["none", "none", "block"]}
+            onClick={() => setTabIndex(2)}
           >
             Edit data
           </Text>
@@ -341,11 +366,13 @@ const BirthConfirmation = () => {
 
             <Text 
               as="a"
+              cursor="pointer"
               color="txt.primary"
               lineHeight="28.8px"
               fontWeight="500"
               fontSize="16px"
               display={["block", "block", "none"]}
+              onClick={() => setTabIndex(1)}
             >
               Edit data
             </Text>
@@ -361,8 +388,9 @@ const BirthConfirmation = () => {
               lineHeight="40px"
               fontWeight="700"
               fontSize="18px"
+              textTransform="capitalize"
             >
-              Mojisola Alogba
+              { mother?.firstName } { mother?.lastName }
             </Text>
             <HStack>
               <Text
@@ -379,7 +407,7 @@ const BirthConfirmation = () => {
                 fontSize="12px"
                 color="txt.muted"
               >
-                04/October/2001
+                { mother?.dob }
               </Text>
             </HStack>
             <HStack>
@@ -387,6 +415,7 @@ const BirthConfirmation = () => {
                 lineHeight="40px"
                 fontWeight="700"
                 fontSize="12px"
+                textTransform="capitalize"
               >
                 Occupation
               </Text>
@@ -397,7 +426,7 @@ const BirthConfirmation = () => {
                 fontSize="12px"
                 color="txt.muted"
               >
-                Civil servant
+                { mother?.occupation }
               </Text>
             </HStack>
             <HStack>
@@ -414,8 +443,9 @@ const BirthConfirmation = () => {
                 fontWeight="700"
                 fontSize="12px"
                 color="txt.muted"
+                textTransform="capitalize"
               >
-                Lagos
+                { mother?.state }
               </Text>
             </HStack>
             <HStack>
@@ -432,8 +462,9 @@ const BirthConfirmation = () => {
                 fontWeight="700"
                 fontSize="12px"
                 color="txt.muted"
+                textTransform="capitalize"
               >
-                Ikorodu
+                { mother?.lga }
               </Text>
             </HStack>
           </VStack>
@@ -441,10 +472,12 @@ const BirthConfirmation = () => {
           <Text 
             as="a"
             color="txt.primary"
+            cursor="pointer"
             lineHeight="28.8px"
             fontWeight="500"
             fontSize="16px"
             display={["none", "none", "block"]}
+            onClick={() => setTabIndex(1)}
           >
             Edit data
           </Text>
