@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { HamburgerIcon } from '@chakra-ui/icons';
 
 // components
 import {
@@ -7,7 +8,12 @@ import {
   HStack,
   Box,
   Text,
-  Circle
+  Circle,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider
 } from '@chakra-ui/react';
 
 // asset
@@ -26,6 +32,81 @@ const NavBar = () => {
           src={logo_light}
         />
       </Box>
+
+      <Menu 
+        py="3"
+        mr="4"
+        display={["block", "block", "block", "none"]}
+      >
+        <MenuButton>
+          <HamburgerIcon
+            fontSize="32px"
+            color="txt.primary"
+          />
+        </MenuButton>
+        <MenuList>
+          <MenuItem>
+            {/* statistics route */}
+            <Link to="/statistics">
+              <Text
+                fontSize="16px" 
+                lineHeight="40px"
+                color="txt.muted"
+                fontWeight="700"
+              >
+                Statistics
+              </Text>
+            </Link>
+          </MenuItem>
+
+          <MenuDivider />
+
+          <MenuItem>
+            <Link to="/history">
+              <Text
+                fontSize="16px" 
+                lineHeight="40px"
+                color="txt.muted"
+                fontWeight="700"
+              >
+                History
+              </Text>
+            </Link>
+          </MenuItem>
+
+          <MenuDivider />
+
+          <MenuItem>
+            {/* birth_reg route */}
+            <Link to="/birth-reg">
+              <Text
+                fontSize="16px" 
+                lineHeight="40px"
+                color="txt.muted"
+                fontWeight="700"
+              >
+                Birth Registration
+              </Text>
+            </Link>
+          </MenuItem>
+
+          <MenuDivider />
+
+          <MenuItem>
+            {/* death_reg route */}
+            <Link to="/death-reg">
+              <Text
+                fontSize="16px" 
+                lineHeight="40px"
+                color="txt.muted"
+                fontWeight="700"
+              >
+                Death Registration
+              </Text>
+            </Link>
+          </MenuItem>
+        </MenuList>
+      </Menu>
 
       <HStack
         align="center"  
