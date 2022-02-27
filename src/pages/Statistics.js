@@ -23,7 +23,7 @@ const Statistics = () => {
           fontWeight="500"
           color="white"
         >
-          Digitized registration system
+          Mortality data dashboard
         </Text>
 
         <TabList
