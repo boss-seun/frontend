@@ -33,80 +33,83 @@ const NavBar = () => {
         />
       </Box>
 
-      <Menu 
-        py="3"
-        mr="4"
+      <Box
         display={["block", "block", "block", "none"]}
       >
-        <MenuButton>
-          <HamburgerIcon
-            fontSize="32px"
-            color="txt.primary"
-          />
-        </MenuButton>
-        <MenuList>
-          <MenuItem>
-            {/* statistics route */}
-            <Link to="/statistics">
-              <Text
-                fontSize="16px" 
-                lineHeight="40px"
-                color="txt.muted"
-                fontWeight="700"
-              >
-                Statistics
-              </Text>
-            </Link>
-          </MenuItem>
+        <Menu 
+          py="3"
+          mr="4"
+        >
+          <MenuButton>
+            <HamburgerIcon
+              fontSize="32px"
+              color="txt.primary"
+            />
+          </MenuButton>
+          <MenuList>
+            <MenuItem>
+              {/* statistics route */}
+              <Link to="/statistics">
+                <Text
+                  fontSize="16px" 
+                  lineHeight="40px"
+                  color="txt.muted"
+                  fontWeight="700"
+                >
+                  Statistics
+                </Text>
+              </Link>
+            </MenuItem>
 
-          <MenuDivider />
+            <MenuDivider />
 
-          <MenuItem>
-            <Link to="/history">
-              <Text
-                fontSize="16px" 
-                lineHeight="40px"
-                color="txt.muted"
-                fontWeight="700"
-              >
-                History
-              </Text>
-            </Link>
-          </MenuItem>
+            <MenuItem>
+              <Link to="/history">
+                <Text
+                  fontSize="16px" 
+                  lineHeight="40px"
+                  color="txt.muted"
+                  fontWeight="700"
+                >
+                  History
+                </Text>
+              </Link>
+            </MenuItem>
 
-          <MenuDivider />
+            <MenuDivider />
 
-          <MenuItem>
-            {/* birth_reg route */}
-            <Link to="/birth-reg">
-              <Text
-                fontSize="16px" 
-                lineHeight="40px"
-                color="txt.muted"
-                fontWeight="700"
-              >
-                Birth Registration
-              </Text>
-            </Link>
-          </MenuItem>
+            <MenuItem>
+              {/* birth_reg route */}
+              <Link to="/birth-reg">
+                <Text
+                  fontSize="16px" 
+                  lineHeight="40px"
+                  color="txt.muted"
+                  fontWeight="700"
+                >
+                  Birth Registration
+                </Text>
+              </Link>
+            </MenuItem>
 
-          <MenuDivider />
+            <MenuDivider />
 
-          <MenuItem>
-            {/* death_reg route */}
-            <Link to="/death-reg">
-              <Text
-                fontSize="16px" 
-                lineHeight="40px"
-                color="txt.muted"
-                fontWeight="700"
-              >
-                Death Registration
-              </Text>
-            </Link>
-          </MenuItem>
-        </MenuList>
-      </Menu>
+            <MenuItem>
+              {/* death_reg route */}
+              <Link to="/death-reg">
+                <Text
+                  fontSize="16px" 
+                  lineHeight="40px"
+                  color="txt.muted"
+                  fontWeight="700"
+                >
+                  Death Registration
+                </Text>
+              </Link>
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      </Box>
 
       <HStack
         align="center"  
