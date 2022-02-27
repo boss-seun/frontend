@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import NavBar from './components/common/NavBar';
 import BirthReg from './pages/BirthReg';
 import DeathReg from './pages/DeathReg';
+import History from './pages/History';
+import Statistics from './pages/Statistics';
 
 const App = () => {
   return (
@@ -22,6 +24,18 @@ const App = () => {
         <>
           <NavBar />
           <DeathReg />
+        </>
+      } />
+      <Route path="/history" element={
+        <>
+          <NavBar />
+          <History />
+        </>
+      } />
+      <Route path="/statistics" element={
+        <>
+          <NavBar />
+          <Statistics />
         </>
       } />
       <Route path="/" element={<Home />} />
