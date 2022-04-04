@@ -8,6 +8,7 @@ import {
   TabPanels,
   TabPanel,
 } from '@chakra-ui/react';
+import Submissions from '../components/Submissions';
 
 const Statistics = () => {
   return (
@@ -71,10 +72,11 @@ const Statistics = () => {
         </TabList>
 
         <TabPanels
-          px={["2rem", "2rem", "2rem", "8rem"]}
+          px={["0rem", "0rem", "2rem", "8rem"]}
         >
           <TabPanel>
             {/* component go dey here */}
+            <Submissions />
           </TabPanel>
         </TabPanels>
       </Tabs>
