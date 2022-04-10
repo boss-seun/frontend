@@ -23,7 +23,7 @@ const Submissions = () => {
   const [years, setYears]  = useState([]);
   const [selectedYear, selectYear] = useState(2022);
   const [state, setState] = useState("lagos");
-  const [lga, setLga] = useState("ikeja");
+  const [, setLga] = useState("ikeja");
   // age data
   const [data, setData] = useState([]);
   // sex dirth rate 
