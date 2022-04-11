@@ -204,7 +204,8 @@ const VictimDetailsForm = () => {
                   key={i}
                   cursor="pointer"
                   textTransform="capitalize"
-                  color="txt.primary"
+                  color={victim.causeOfDeath === i ? "white" : "txt.primary"}
+                  bg={victim.causeOfDeath === i ? "txt.primary" : "transparent"}
                   onClick={() => setVictim(c => ({ ...c, causeOfDeath: i.toLowerCase()}))}
                 >
                   { i } {"    "}

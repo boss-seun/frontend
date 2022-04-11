@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { Input, FormLabel, Box, InputGroup, InputRightElement, Button } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
+const generateDate = () => {
+  const date = new Date()
+  const month = date.getMonth() < 10 ? `0${date.getMonth()}` : `${date.getMonth()}`
+  return `${date.getFullYear()}-${month}-${date.getDate()}`
+}
+
 const MainInput = (props) => {
   const { 
     placeholder,
@@ -9,7 +15,8 @@ const MainInput = (props) => {
     onFocus = () => {},
     onBlur = () => {},
     onChange = () => {},
-    type = 'text'
+    type = 'text',
+    max = generateDate()
   } = props;
 
   const [active, setActive] = useState(false);
@@ -68,6 +75,8 @@ const MainInput = (props) => {
           onBlur(e);
         }}
         type={type}
+        max={type === "date" ? max : undefined}
+        // min={} 
       />
       </Box>
     );
@@ -94,6 +103,7 @@ export const PasswordInput = (props) => {
           borderColor: "txt.primary",
           borderWidth: "2px"
         }}
+        { ...props }
       />
       <InputRightElement >
         <Button

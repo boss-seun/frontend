@@ -5,6 +5,9 @@ import {
   VStack,
   Stack
 } from '@chakra-ui/react';
+import axios from "axios";
+import { usePaystackPayment } from "react-paystack";
+import { useNavigate } from 'react-router-dom';
 
 import MainButton from '../common/Button';
 
@@ -12,6 +15,7 @@ import { context as modalContext } from '../../context/modal';
 import { context as birthContext } from '../../context/birth';
 
 const BirthConfirmation = () => {
+  const navigate = useNavigate();
   const showAlert = useContext(modalContext);
   const {
     setTabIndex,
@@ -19,19 +23,49 @@ const BirthConfirmation = () => {
     father,
     mother
   } = useContext(birthContext);
+  const initPayment = usePaystackPayment({
+    amount: 1000 * 100,
+    publicKey: `${process.env.REACT_APP_PAYSTACK_KEY}`,
+    reference: Date.now().toString(),
+    email: 'info@seun-birth-reg.ng'
+  });
   
 
-  const handleSubmit = () => {
-    // do api call here
-    showAlert({
-      t: 'Successfully Submitted',
-      tp: 'success',
-      d: 'You will receive a notification when your submission has been approved',
-      bc: 'GOT IT',
-      bClick: () => {
-        alert('why you dey click me madam 😒');
-      } 
+  const onSuccess = ({ reference }) => {
+    // make api call here
+    axios.post("/birth", {
+      child,
+      father,
+      mother
+    }).then((res) => {
+      // const regId = res?.data?.birth?._id
+      showAlert({
+        t: 'Successfully Submitted',
+        tp: 'success',
+        d: `Your payment reference is ${reference}. Check back later for approval status`,
+        bc: 'PRINT CERTIFICATE',
+        bClick: () => {
+          // todo: print certificate func
+          // window.location.href = `${url}/regId`
+          navigate("/history");
+        } 
+      });
+    }).catch((error) => {
+      showAlert({
+        t: 'An Error Occurred',
+        tp: 'error',
+        d: error?.response?.data?.message || error?.message,
+        bc: 'RETRY'
+      });
     });
+  };
+
+  const onClose = () => {
+    // do nothing
+  };
+
+  const handleSubmit = async () => {
+    initPayment(onSuccess, onClose);
   };
 
   return (

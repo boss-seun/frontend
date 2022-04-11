@@ -6,6 +6,7 @@ import Home from './pages/Home';
 
 // components
 import NavBar from './components/common/NavBar';
+import Footer from './components/common/Footer';
 import BirthReg from './pages/BirthReg';
 import DeathReg from './pages/DeathReg';
 import History from './pages/History';
@@ -18,24 +19,28 @@ const App = () => {
         <>
           <NavBar />
           <BirthReg />
+          <Footer/>
         </>
       } />
       <Route path="/death-reg" element={
         <>
           <NavBar />
           <DeathReg />
+          <Footer/>
         </>
       } />
       <Route path="/history" element={
         <>
           <NavBar />
           <History />
+          <Footer/>
         </>
       } />
       <Route path="/statistics" element={
         <>
           <NavBar />
           <Statistics />
+          <Footer/>
         </>
       } />
       <Route path="/" element={<Home />} />

@@ -9,7 +9,8 @@ import {
   VStack,
   Text,
   Box,
-  Circle
+  Circle,
+  Input
 } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
@@ -91,5 +92,55 @@ const AppModal = (props) => {
   );
 };
 
+const OtpModal = (props) => {
+ const {
+    isOpen = false,
+    onClose = () => {},
+    btnClick = () => {},
+    onChange = () => {} 
+  } = props
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent alignItems="center" alignSelf="center">
+        <ModalHeader
+          color="black"
+          fontSize="24px"
+          lineHeight="32px" 
+          fontWeight="500"
+        >
+          Verification
+        </ModalHeader>
+        <ModalBody>
+          <VStack>
+            <Text
+              fontWeight="500" 
+              color="GrayText"
+            >
+              An OTP was sent to your phone number.
+            </Text>
+            <Input
+              type="number"
+              bg="gray.100"
+              borderColor="GrayText"
+              onChange={onChange}
+            />
+          </VStack>
+        </ModalBody>
+
+        <ModalFooter w="60%">
+          <MainButton
+            w="100%"
+            title="PROCEED"
+            onClick={btnClick}
+          />
+        </ModalFooter>
+      </ModalContent>
+    </Modal> 
+  );
+};
+
 export default AppModal;
+export { OtpModal };
 

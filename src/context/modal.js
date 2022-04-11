@@ -18,7 +18,13 @@ export const ModalProvider = (props) => {
     setBtnContent(bc);
 
     // set the click handler
-    setBtnClick(() => bClick)
+    setBtnClick(() => {
+      if (bClick) {
+        return () => { bClick(); setOpen(false); }
+      } else {
+        return () => setOpen(false);
+      }
+    })
 
     // open modal
     setOpen(true);

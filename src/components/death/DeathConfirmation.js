@@ -5,6 +5,9 @@ import {
   VStack,
   Stack
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { usePaystackPayment } from "react-paystack";
 
 import MainButton from '../common/Button';
 
@@ -12,11 +15,19 @@ import { context as modalContext } from '../../context/modal';
 import { context as deathContext } from '../../context/death';
 
 const DeathConfirmation = () => {
+  const navigate = useNavigate();
   const showAlert = useContext(modalContext);
   const {
     setTabIndex,
     victim
   } = useContext(deathContext);
+  const initPayment = usePaystackPayment({
+    amount: 1000 * 100,
+    publicKey: `${process.env.REACT_APP_PAYSTACK_KEY}`,
+    reference: Date.now().toString(),
+    email: 'info@seun-birth-reg.ng'
+  });
+  
   
   const age = () => {
     const birthDate = new Date(victim?.dob);
@@ -25,17 +36,40 @@ const DeathConfirmation = () => {
     return Math.abs(deathDate.getUTCFullYear() - birthDate.getUTCFullYear());
   }
 
-  const handleSubmit = () => {
+  // func must not be async - react paystack crashes
+  const onSuccess = ({ reference }) => {
     // do api call here
-    showAlert({
-      t: 'Successfully Submitted',
-      tp: 'success',
-      d: 'You will receive a notification when your submission has been approved',
-      bc: 'GOT IT',
-      bClick: () => {
-        alert('why you dey click me madam 😒');
-      } 
-    });
+    axios.post("/death", victim) 
+      .then((res) => {
+        // const regId = res?.data?.death?._id
+        showAlert({
+          t: 'Successfully Submitted',
+          tp: 'success',
+          d: `Your payment reference is ${reference}. Check back later for approval status`,
+          bc: 'PRINT CERTIFICATE',
+          bClick: () => {
+            // todo: print certificate func
+            // window.location.href = `${url}/regId`
+            navigate("/history");
+          } 
+        });
+      })
+      .catch((error) => {
+        showAlert({
+          t: 'An Error Occurred',
+          tp: 'error',
+          d: error?.response?.data?.message || error?.message,
+          bc: 'RETRY'
+        });
+      })
+  };
+
+  const onClose = () => {
+    // do nothing
+  };
+
+  const handleSubmit = () => {
+    initPayment(onSuccess, onClose);
   };
 
   return (
