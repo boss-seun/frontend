@@ -16,18 +16,20 @@ import {
   Td
 } from "@chakra-ui/react";
 import { PieChart, Pie, Tooltip } from "recharts";
+import axios from "axios";
 
 import { LgaSelect, StateSelect } from "../components/common/Select";
 
 const Submissions = () => {
   const [years, setYears]  = useState([]);
-  const [selectedYear, selectYear] = useState(2022);
-  const [state, setState] = useState("lagos");
-  const [, setLga] = useState("ikeja");
+  const [selectedYear, selectYear] = useState(new Date().getFullYear());
+  const [state, setState] = useState("");
+  const [lga, setLga] = useState("");
   // age data
   const [data, setData] = useState([]);
   // sex dirth rate 
   const [sexData, setSexData] = useState([]);
+  const [sexSummary, setSexSummary] = useState({});
   // cardiovascular data by age
   const [cardioData, setCardioData] = useState([]);
   // cancer data by age
@@ -46,167 +48,77 @@ const Submissions = () => {
     return yrs;
   };
 
-  const generateData = () => {
+  const generateData = async () => {
     // make api call here
-    setData([
-      {
-        name: "unknown",
-        fill: "#636363",
-        value: 0
-      },
-      {
-        name: "75+",
-        fill: "#E84744",
-        value: 755
-      },
-      {
-        name: "55-75",
-        fill: "#168EC7",
-        value: 302
-      },
-      {
-        name: "35-56",
-        fill: "#90C946",
-        value: 171
-      },
-      {
-        name: "25-34",
-        fill: "#5FC2E5",
-        value: 0
-      },
-      {
-        name: "15-23",
-        fill: "#FEBC21",
-        value: 33
-      },
-      {
-        name: "5-14",
-        fill: "#A5A5A5",
-        value: 0
-      },
-      {
-        name: "1-4",
-        fill: "#56A8AF",
-        value: 0
-      },
-      {
-        name: "<1",
-        fill: "#9F577F",
-        value: 50
+    const { data: summary = {} } = await axios.get(`/statistics/death-summary?year=${selectedYear}&state=${state}&lga=${lga}`);
+    const _sexData = [];
+    const _sexSummary = {};
+
+    Object.entries(summary).forEach(([key, value]) => {
+      // set required states
+      if (key !== "total") {
+        _sexData.push(
+          {
+            name: key,
+            value: value?.value,
+            fill: value?.fill,
+          }
+        );
       }
-    ])
 
-    // set cancer data
-    setCancerData([
-      {
-        name: "unknown",
-        fill: "#636363",
-        value: 0
-      },
-      {
-        name: "75+",
-        fill: "#E84744",
-        value: 948
-      },
-      {
-        name: "55-75",
-        fill: "#168EC7",
-        value: 194
-      },
-      {
-        name: "35-56",
-        fill: "#90C946",
-        value: 651
-      },
-    ])
+      _sexSummary[key] = value?.value || 0
+    });
 
-    // set cardio data
-    setCardioData([
-      {
-        name: "unknown",
-        fill: "#636363",
-        value: 0
-      },
-      {
-        name: "75+",
-        fill: "#E84744",
-        value: 748
-      },
-      {
-        name: "55-75",
-        fill: "#168EC7",
-        value: 433
-      },
-      {
-        name: "35-56",
-        fill: "#90C946",
-        value: 55
-      },
-    ])
+    const { data: ageSummary = [] } = await axios.get(`/statistics/age-death-summary?year=${selectedYear}&state=${state}&lga=${lga}`);
+    const { data: cancerSummary } = await axios.get(`/statistics/disease-death-summary?year=${selectedYear}&state=${state}&lga=${lga}&disease=cancer`);
+    const { data: malariaSummary } = await axios.get(`/statistics/disease-death-summary?year=${selectedYear}&state=${state}&lga=${lga}&disease=malaria`);
+   
+    const _cancerData = ageData.map(d => {
+      const value = cancerSummary.find(c => c.name === d.name);
+      if (value) {
+        return {
+          name: d?.name,
+          value: value?.value,
+          fill: d?.fill
+        }
+      }
+      return undefined
+    }).filter(c => c !== undefined);
 
+    const _malariaData = ageData.map(d => {
+      const value = malariaSummary.find(c => c.name === d.name);
+      if (value) {
+        return {
+          name: d?.name,
+          value: value?.value,
+          fill: d?.fill
+        }
+      }
+      return undefined
+    }).filter(c => c !== undefined);
+
+    setCardioData(_malariaData);
+    setCancerData(_cancerData);
+    setData(ageData.map(d => ({
+      name: d?.name,
+      fill: d?.fill,
+      value: d?.total?.count || 0
+    })));
+    // set age data
+    setAgeData(ageSummary);
     // set sex data
-    setSexData([
-      {
-        name: "Males",
-        fill: "#168EC7",
-        value: 40
-      },
-      {
-        name: "Females",
-        fill: "#E84744",
-        value: 60
-      },
-      {
-        name: "Unknown sex",
-        fill: "#636363",
-        value: 0
-      },
-    ])
-
-    // set age Data
-    setAgeData([
-      {
-        name: "<1",
-        male: {
-          count: 55,
-          percent: 1
-        },
-        female: {
-          count: 22,
-          percent: 0.2
-        },
-        unknown: {
-          count: 0,
-          percent: 0
-        }
-      },
-      {
-        name: "unknown",
-        male: {
-          count: 0,
-          percent: 0
-        },
-        female:  {
-          count: 0,
-          percent: 0
-        },
-        unknown: {
-          count: 0,
-          percent: 0
-        }
-      },
-    ]);
+    setSexData(_sexData);
+    setSexSummary(_sexSummary);
   };
 
   useEffect(() => {
     if (!years?.length) {
       setYears(generateYears());
     }
+    generateData()
 
-    if (!data.length) {
-      generateData()
-    }
-  }, [years, data]);
+    // eslint-disable-next-line
+  }, [years, state, lga, selectedYear]);
 
   return (
     <HStack
@@ -264,7 +176,7 @@ const Submissions = () => {
               fontWeight="900"
               fontSize="24px"
             >
-              25,253
+              { parseInt(sexSummary?.total || 0).toLocaleString() }
             </Text>
           </HStack>
           <HStack>
@@ -280,7 +192,7 @@ const Submissions = () => {
               fontWeight="500"
               fontSize="18px"
             >
-              16,256
+              { parseInt(sexSummary?.male || 0).toLocaleString() }
             </Text>
           </HStack>
           <HStack>
@@ -296,7 +208,7 @@ const Submissions = () => {
               fontWeight="500"
               fontSize="18px"
             >
-              9,556
+              { parseInt(sexSummary?.female || 0).toLocaleString() }
             </Text>
           </HStack>
           <HStack>
@@ -312,7 +224,7 @@ const Submissions = () => {
               fontWeight="500"
               fontSize="18px"
             >
-              300
+              { parseInt(sexSummary?.unknown || 0).toLocaleString() }
             </Text>
           </HStack>
         </VStack>
@@ -402,7 +314,7 @@ const Submissions = () => {
                 fontSize="24px"
                 textAlign="center"
               >
-                Cardiovascular Disease
+                Malaria
               </Text>
               <PieChart width={250} height={250}>
                 <Pie
@@ -471,7 +383,7 @@ const Submissions = () => {
                     {
                       ageData.length && ageData.reduce((acc, { male }) => (
                         acc + male?.percent
-                      ), 0)
+                      ), 0) / 100
                     }%
                   </Th>
                   <Th>
@@ -484,7 +396,7 @@ const Submissions = () => {
                     {
                       ageData.length && ageData.reduce((acc, { female }) => (
                         acc + female?.percent
-                      ), 0)
+                      ), 0) / 100
                     }%
                   </Th>
                   <Th>
@@ -497,7 +409,7 @@ const Submissions = () => {
                     {
                       ageData.length && ageData.reduce((acc, { unknown }) => (
                         acc + unknown?.percent
-                      ), 0)
+                      ), 0) / 100
                     }%
                   </Th>
                 </Tr>

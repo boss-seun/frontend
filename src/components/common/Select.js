@@ -26,7 +26,7 @@ const LgaSelect = (props) => {
     state = 'lagos'
   } = props;
 
-  const { lgas } = data.find(({ alias }) => alias === state)
+  const { lgas = [] } = data?.find(({ alias }) => alias === state) || { lgas: [] };
   return (
     <Select
       placeholder="Local govt area" 
@@ -34,7 +34,7 @@ const LgaSelect = (props) => {
       iconColor="txt.primary"
       {...props}
     >
-      { lgas.map((lga) => (
+      { lgas?.map((lga) => (
         <option value={lga.toLowerCase()} key={lga.toLowerCase()}>
           { lga }
         </option>
