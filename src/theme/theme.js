@@ -10,6 +10,12 @@ const appTheme = {
     txt: {
       primary: '#0773C4',
       muted: '#12112799',
+      green: '#05A660',
+      red: '#E53535',
+      // light green
+      lg: '#EBF8F1',
+      // light red
+      lr: '#FFEBEB'
     }
   },
   fonts: {

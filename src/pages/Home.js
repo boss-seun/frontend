@@ -8,6 +8,7 @@ import {
   HStack
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 import SelectView from '../components/SelectView';
 import { Register } from '../components/MedicalCenterForm';
 import LocalGovForm from '../components/LocalGovForm';
@@ -17,13 +18,14 @@ import logo from '../assets/logo.svg';
 import items from '../utils/items';
 
 const Home = () => {
-  const [selected, setSelected] = useState("mc");
+  const [selected, setSelected] = useState("lg");
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const forms = Object.freeze({
     "mc": Register,
     "lg": LocalGovForm,
-    "i": IndividualForm 
+    "i": IndividualForm,
   });
 
   const CurrentForm = forms[selected];
@@ -76,8 +78,12 @@ const Home = () => {
                 pb="20px"
                 key={i.ticker}
                 onClick={() => {
-                  setSelected(i.ticker);
-                  setShow(false);
+                  if (i.ticker === "vs") {
+                    navigate("/statistics");
+                  } else {
+                    setSelected(i.ticker);
+                    setShow(false);
+                  }
                 }}
                 display={!show ? [
                   selected === i.ticker ? "block" : "none",
