@@ -381,9 +381,9 @@ const Submissions = () => {
                     }
                     {" "}
                     {
-                      ageData.length && ageData.reduce((acc, { male }) => (
-                        acc + male?.percent
-                      ), 0) / 100
+                      (ageData.length && ageData.reduce((acc, { male }) => (
+                        acc + parseFloat(male?.percent)
+                      ), 0) / 100).toFixed(2)
                     }%
                   </Th>
                   <Th>
@@ -394,9 +394,9 @@ const Submissions = () => {
                     }
                     {" "}
                     {
-                      ageData.length && ageData.reduce((acc, { female }) => (
-                        acc + female?.percent
-                      ), 0) / 100
+                      (ageData.length && ageData.reduce((acc, { female }) => (
+                        acc + parseFloat(female?.percent)
+                      ), 0) / 100).toFixed(2)
                     }%
                   </Th>
                   <Th>
@@ -407,9 +407,9 @@ const Submissions = () => {
                     }
                     {" "}
                     {
-                      ageData.length && ageData.reduce((acc, { unknown }) => (
-                        acc + unknown?.percent
-                      ), 0) / 100
+                      (ageData.length && ageData.reduce((acc, { unknown }) => (
+                        acc + parseFloat(unknown?.percent)
+                      ), 0) / 100).toFixed(2)
                     }%
                   </Th>
                 </Tr>
