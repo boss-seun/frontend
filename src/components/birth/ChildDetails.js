@@ -22,7 +22,7 @@ const ChildDetailsForm = () => {
   // birth type state
   const [gender, setGender] = useState("Male");
   // lga input state
-  const [state, setState] = useState("lagos");
+  const [state, setState] = useState("");
 
   return (
     <VStack
@@ -31,7 +31,7 @@ const ChildDetailsForm = () => {
     >
       <Box w={["100%", "100%", "32%"]}>
         <MainInput 
-          placeholder="Given Name*"
+          placeholder="First Name*"
           onChange={(e) => setChild(c => ({ ...c, firstName: e.target.value }))}
         />
       </Box>
@@ -129,6 +129,7 @@ const ChildDetailsForm = () => {
         w="100%"
       >
         <StateSelect
+          isLagos
           onChange={(e) => {
             setState(e.target.value);
             setChild(c => ({ ...c, state: e.target.value }));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { HamburgerIcon } from '@chakra-ui/icons';
 
@@ -19,7 +19,11 @@ import {
 // asset
 import logo_light from '../../assets/logo_light.svg';
 
+// contexts
+import { context as userContext } from "../../context/user";
+
 const NavBar = () => {
+  const { logout } = useContext(userContext);
   return (
     <HStack 
       bg="white" 
@@ -107,6 +111,23 @@ const NavBar = () => {
                 </Text>
               </Link>
             </MenuItem>
+
+            <MenuDivider />
+
+            <MenuItem>
+              <Text
+                fontSize="16px" 
+                lineHeight="40px"
+                color="txt.muted"
+                fontWeight="700"
+                as="button"
+                onClick={() => {
+                  logout()
+                }}
+              >
+                Logout
+              </Text>
+            </MenuItem>
           </MenuList>
         </Menu>
       </Box>
@@ -179,7 +200,7 @@ const NavBar = () => {
           color="txt.muted"
           fontWeight="700"
         >
-          +225678901
+          +2349066636494
         </Text>
 
         <Circle

@@ -72,7 +72,7 @@ const MotherDetailsForm = () => {
         w="100%"
       >
         <MainInput
-          placeholder="Mother's name*"
+          placeholder="First name*"
           onChange={(e) => setMother(m => ({ ...m, firstName: e.target.value }))}
         />
         <MainInput

@@ -152,6 +152,7 @@ const Submissions = () => {
       <Box>
         <HStack mt="2rem">
           <StateSelect
+            isLagos
             onChange={(e) => setState(e.target.value)}
           />
           <LgaSelect

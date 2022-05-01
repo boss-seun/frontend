@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
   Box,
+  Button,
   Text
 } from "@chakra-ui/react";
 import MUIDataTable from "mui-datatables";
@@ -31,6 +32,10 @@ const PendingActions = () => {
     {
       name: "status",
       label: "Status"
+    },
+    {
+      name: "action",
+      label: "Action"
     }
   ];
 
@@ -49,7 +54,8 @@ const PendingActions = () => {
               class: d.class,
               registrar: d.registrar,
               status: d.approved ? "approved" : d.deactivated ? "deactivated" : "pending",
-              "data_time": `${d.firstName} ${d.lastName}\n${new Date(d.createdAt || Date.now()).toDateString()}`
+              "data_time": `${d.firstName} ${d.lastName}\n${new Date(d.createdAt || Date.now()).toDateString()}`,
+              action: <Button>Click me</Button>
             }
           } else {
             return {
@@ -57,7 +63,8 @@ const PendingActions = () => {
               class: d.class,
               registrar: d.registrar,
               status: d.approved ? "approved" : d.deactivated ? "deactivated" : "pending",
-              "data_time": `${d.child?.firstName} ${d.child?.lastName}\n${new Date(d.createdAt || Date.now()).toDateString()}`
+              "data_time": `${d.child?.firstName} ${d.child?.lastName}\n${new Date(d.createdAt || Date.now()).toDateString()}`,
+              action: <Button>Click me</Button>
             }
           }
         })

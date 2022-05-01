@@ -5,7 +5,6 @@ import {
   VStack, 
   Text,
   Stack,
-  Checkbox
 } from '@chakra-ui/react';
 
 import MainInput from '../common/Input';
@@ -25,8 +24,8 @@ const VictimDetailsForm = () => {
   // birth type state
   const [gender, setGender] = useState("Male");
   // lga input state
-  const [state, setState] = useState("lagos");
-  const [deathState, setDeathState] = useState("lagos");
+  const [state, setState] = useState("");
+  const [deathState, setDeathState] = useState("");
 
   return (
     <VStack
@@ -119,6 +118,7 @@ const VictimDetailsForm = () => {
         w="100%"
       >
         <StateSelect
+          isLagos
           onChange={(e) => {
             setDeathState(e.target.value);
             setVictim(c => ({ ...c, deathState: e.target.value }));
@@ -157,17 +157,6 @@ const VictimDetailsForm = () => {
         />
       </Stack>
 
-      <Checkbox onChange={(e) => {
-        if (e.target.checked) {
-          setVictim(c => ({
-            ...c,
-            lga: victim?.deathLga,
-            state: victim?.deathState
-          }));
-        }
-      }}>
-        Same as above
-      </Checkbox>
       <hr />
 
       <Text

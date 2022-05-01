@@ -41,15 +41,14 @@ const DeathConfirmation = () => {
     // do api call here
     axios.post("/death", victim) 
       .then((res) => {
-        // const regId = res?.data?.death?._id
+        const regId = res?.data?.death?._id
         showAlert({
           t: 'Successfully Submitted',
           tp: 'success',
           d: `Your payment reference is ${reference}. Check back later for approval status`,
           bc: 'PRINT CERTIFICATE',
           bClick: () => {
-            // todo: print certificate func
-            // window.location.href = `${url}/regId`
+            window.location.href = `${process.env.REACT_APP_BACKEND_URL}/death/certificate/${regId}`
             navigate("/history");
           } 
         });

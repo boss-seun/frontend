@@ -38,15 +38,14 @@ const BirthConfirmation = () => {
       father,
       mother
     }).then((res) => {
-      // const regId = res?.data?.birth?._id
+      const regId = res?.data?.birth?._id
       showAlert({
         t: 'Successfully Submitted',
         tp: 'success',
         d: `Your payment reference is ${reference}. Check back later for approval status`,
         bc: 'PRINT CERTIFICATE',
         bClick: () => {
-          // todo: print certificate func
-          // window.location.href = `${url}/regId`
+          window.location.href = `${process.env.REACT_APP_BACKEND_URL}/birth/certificate/${regId}`
           navigate("/history");
         } 
       });

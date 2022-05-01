@@ -12,18 +12,22 @@ const StateSelect = (props) => {
       iconColor="txt.primary"
       {...props}
     >
-      { data.map(({ state, alias }) => (
+      { !props.isLagos ? data.map(({ state, alias }) => (
         <option value={alias} key={alias}>
           { state }
         </option>
-      ))}
+      )): (
+        <option value="lagos" key="lagos">
+          Lagos
+        </option>
+      )}
     </Select>
   );
 };
 
 const LgaSelect = (props) => {
   const { 
-    state = 'lagos'
+    state
   } = props;
 
   const { lgas = [] } = data?.find(({ alias }) => alias === state) || { lgas: [] };

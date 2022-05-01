@@ -22,6 +22,7 @@ export const UserProvider = ({ children }) => {
     localStorage.clear();
     setUser(null);
     navigate("/");
+    window.location.reload();
   };
 
   // check local storage here

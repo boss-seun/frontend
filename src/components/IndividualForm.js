@@ -16,7 +16,7 @@ const IndividualForm = () => {
   const navigate = useNavigate();
   const showAlert = useContext(modalContext);
   const { login } = useContext(userContext)
-  const [state, setState] = useState('lagos');
+  const [state, setState] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [otp, setOtp] = useState('');
@@ -133,6 +133,7 @@ const IndividualForm = () => {
         >
           <WrapItem w={["100%", "100%", "100%", "47%"]}>
             <StateSelect
+              isLagos
               onChange={(e) => {
                 setState(e.target.value);
                 setValues(p => ({ ...p, state: e.target.value }));

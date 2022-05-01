@@ -15,12 +15,11 @@ const LocalGovForm = () => {
   const showAlert = useContext(modalContext);
   const { login } = useContext(userContext);
   const [loading, setLoading] = useState(false);
-  const [state, setState] = useState('lagos');
+  const [state, setState] = useState('');
   const [values, setValues] = useState({
     state: '',
     lga: '',
     lgaID: '',
-    role: '',
     employeeName: ''
   });
 
@@ -28,7 +27,6 @@ const LocalGovForm = () => {
     values.state.length &&
     values.lga.length &&
     values.lgaID.length &&
-    values.role.length &&
     values.employeeName.length;
 
   const handleSubmit = async () => {
@@ -79,6 +77,7 @@ const LocalGovForm = () => {
         >
           <WrapItem w={["100%", "100%", "100%", "47%"]}>
             <StateSelect
+              isLagos
               onChange={(e) => { 
                 setState(e.target.value); 
                 setValues(p => ({ ...p, state: e.target.value }))
@@ -93,24 +92,10 @@ const LocalGovForm = () => {
           </WrapItem>
         </Wrap>
 
-        <Wrap
-          w="100%"
-          direction="row"
-          spacing={["8", "8", "8", "2.5"]}
-        >
-          <WrapItem w={["100%", "100%", "100%", "47%"]}>
-            <MainInput
-              placeholder="Employee name"
-              onChange={(e) => setValues(p => ({ ...p, employeeName: e.target.value }))}
-            />
-          </WrapItem>
-          <WrapItem w={["100%", "100%", "100%", "47%"]}>
-            <MainInput
-              placeholder="Role"
-              onChange={(e) => setValues(p => ({ ...p, role: e.target.value }))}
-            />
-          </WrapItem>
-        </Wrap>
+        <MainInput
+          placeholder="Employee name"
+          onChange={(e) => setValues(p => ({ ...p, employeeName: e.target.value }))}
+        />
 
         <MainInput
           placeholder="Local Government unique ID"
