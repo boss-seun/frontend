@@ -6,25 +6,25 @@ import view_statistical_data_icon from "../assets/view_statistical_data.svg";
 const items = [
   {
     "title": "Local Government",
-    "note": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet velit purus vitana varius.",
+    "note": "",
     "ticker": "lg",
     "icon": local_government_icon
   },
   {
     "title": "Medical Center",
-    "note": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet velit purus vitana varius.",
+    "note": "",
     "ticker": "mc",
     "icon": medical_center_icon
   },
   {
     "title": "Individual",
-    "note": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet velit purus vitana varius.",
+    "note": "",
     "ticker": "i",
     "icon": individual_icon
   },
   {
     "title": "View Statistical Data",
-    "note": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet velit purus vitana varius.",
+    "note": "",
     "ticker": "vs",
     "icon": view_statistical_data_icon
   }
