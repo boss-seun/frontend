@@ -72,7 +72,7 @@ const Home = () => {
         <Box
           p={["5", "5", "10"]} 
         >
-          <VStack>
+          <VStack align="start">
             { items.map((i) => (
               <Box
                 pb="20px"
