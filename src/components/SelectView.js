@@ -22,6 +22,8 @@ const SelectView = (props) => {
       borderEndRadius="15px"
       py="6"
       px="2"
+      width={["xs","sm","sm","lg"]}
+      justify="flex-start"
     >
       <Square
         size={["16", "16", "24"]} 
@@ -34,8 +36,6 @@ const SelectView = (props) => {
           alt="medical_icon"
         />
       </Square>
-
-      <Spacer/>
 
       <VStack
         align="start"
