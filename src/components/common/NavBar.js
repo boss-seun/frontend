@@ -114,16 +114,15 @@ const NavBar = () => {
 
             <MenuDivider />
 
-            <MenuItem>
+            <MenuItem
+              onClick={logout} 
+            >
               <Text
                 fontSize="16px" 
                 lineHeight="40px"
                 color="txt.muted"
                 fontWeight="700"
                 as="button"
-                onClick={() => {
-                  logout()
-                }}
               >
                 Logout
               </Text>
