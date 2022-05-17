@@ -3,7 +3,6 @@ import {
   HStack,
   Square,
   Image,
-  Spacer,
   VStack,
   Text
 } from '@chakra-ui/react';
