@@ -28,7 +28,8 @@ const PendingActions = () => {
     "_id",
     "userId",
     "updatedAt",
-    "otp"
+    "otp",
+    "password"
   ]);
 
   const [trigger, setTrigger] = useState(false);
