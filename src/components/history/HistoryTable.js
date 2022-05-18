@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
   Box,
-  Text
+  Text,
+  Button
 } from "@chakra-ui/react";
 import MUIDataTable from "mui-datatables";
 import axios from "axios";
@@ -31,6 +32,10 @@ const HistoryTable = () => {
     {
       name: "status",
       label: "Status"
+    },
+    {
+      name: "action",
+      label: "Action"
     }
   ];
 
@@ -45,7 +50,8 @@ const HistoryTable = () => {
               class: d.class,
               registrar: d.registrar,
               status: d.approved ? "approved" : d.deactivated ? "deactivated" : "pending",
-              "data_time": `${d.firstName} ${d.lastName}\n${new Date(d.createdAt || Date.now()).toDateString()}`
+              "data_time": `${d.firstName} ${d.lastName}\n${new Date(d.createdAt || Date.now()).toDateString()}`,
+              "action": <Button onClick={handlePrintCertificate.bind(this, d._id, d.approved, d.class)} disabled={!d.approved}>{ d.approved ? "Print Certificate" : "Awaiting approval" }</Button>
             }
           } else {
             return {
@@ -53,7 +59,8 @@ const HistoryTable = () => {
               class: d.class,
               registrar: d.registrar,
               status: d.approved ? "approved" : d.deactivated ? "deactivated" : "pending",
-              "data_time": `${d.child?.firstName} ${d.child?.lastName}\n${new Date(d.createdAt || Date.now()).toDateString()}`
+              "data_time": `${d.child?.firstName} ${d.child?.lastName}\n${new Date(d.createdAt || Date.now()).toDateString()}`,
+              "action": <Button onClick={handlePrintCertificate.bind(this, d._id, d.approved, d.class)} disabled={!d.approved}>{ d.approved ? "Print Certificate" : "Awaiting approval" }</Button>
             }
           }
         })
@@ -71,6 +78,15 @@ const HistoryTable = () => {
         })
       })
   }, [user, showAlert])
+
+  const handlePrintCertificate = (id, approved, cls) => {
+    if (!approved) {
+      return;
+    }
+    let url = `${process.env.REACT_APP_BACKEND_URL}/${cls}/certificate/${id}`
+    window.open(url, "_blank");
+    return;
+  };
 
   return (
     <Box>

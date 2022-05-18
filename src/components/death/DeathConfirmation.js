@@ -13,6 +13,7 @@ import MainButton from '../common/Button';
 
 import { context as modalContext } from '../../context/modal';
 import { context as deathContext } from '../../context/death';
+import { context as userContext } from "../../context/user";
 
 const DeathConfirmation = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const DeathConfirmation = () => {
     setTabIndex,
     victim
   } = useContext(deathContext);
+  const { user } = useContext(userContext);
   const initPayment = usePaystackPayment({
     amount: 1000 * 100,
     publicKey: `${process.env.REACT_APP_PAYSTACK_KEY}`,
@@ -46,9 +48,11 @@ const DeathConfirmation = () => {
           t: 'Successfully Submitted',
           tp: 'success',
           d: `Your payment reference is ${reference}. Check back later for approval status`,
-          bc: 'PRINT CERTIFICATE',
+          bc: user.role === "lga" ? 'PRINT CERTIFICATE': "Go to history",
           bClick: () => {
-            window.location.href = `${process.env.REACT_APP_BACKEND_URL}/death/certificate/${regId}`
+            if (user.role === "lga") {
+              window.location.href = `${process.env.REACT_APP_BACKEND_URL}/death/certificate/${regId}`
+            }
             navigate("/history");
           } 
         });

@@ -13,6 +13,7 @@ import MainButton from '../common/Button';
 
 import { context as modalContext } from '../../context/modal';
 import { context as birthContext } from '../../context/birth';
+import { context as userContext } from "../../context/user";
 
 const BirthConfirmation = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const BirthConfirmation = () => {
     father,
     mother
   } = useContext(birthContext);
+  const { user } = useContext(userContext);
   const initPayment = usePaystackPayment({
     amount: 1000 * 100,
     publicKey: `${process.env.REACT_APP_PAYSTACK_KEY}`,
@@ -43,9 +45,11 @@ const BirthConfirmation = () => {
         t: 'Successfully Submitted',
         tp: 'success',
         d: `Your payment reference is ${reference}. Check back later for approval status`,
-        bc: 'PRINT CERTIFICATE',
+        bc: user.role === "lga" ? 'PRINT CERTIFICATE': "Go to history",
         bClick: () => {
-          window.location.href = `${process.env.REACT_APP_BACKEND_URL}/birth/certificate/${regId}`
+          if (user.role === "lga") {
+            window.location.href = `${process.env.REACT_APP_BACKEND_URL}/birth/certificate/${regId}`
+          }
           navigate("/history");
         } 
       });
