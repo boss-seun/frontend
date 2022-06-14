@@ -118,6 +118,7 @@ const ChildDetailsForm = () => {
         >
           <MainInput
             placeholder="Registration center*"
+            fontSize="12px"
             onChange={(e) => setChild(c => ({ ...c, registrationCenter: e.target.value }))}
           />
         </Box>

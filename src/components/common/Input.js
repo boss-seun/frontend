@@ -16,7 +16,8 @@ const MainInput = (props) => {
     onBlur = () => {},
     onChange = () => {},
     type = 'text',
-    max = generateDate()
+    max = generateDate(),
+    ...others
   } = props;
 
   const [active, setActive] = useState(false);
@@ -39,6 +40,7 @@ const MainInput = (props) => {
         fontWeight="500"
         px="2"
         display={!active && !focus && !value && "none"}
+        {...others}
       >
         {placeholder}
       </FormLabel>
